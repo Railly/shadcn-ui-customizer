@@ -21,7 +21,7 @@ const ColorPickerSection: React.FC = () => {
 
   function groupColorsByMode(config: any, mode: string | undefined) {
     if (!mode || typeof config.cssVars[mode] !== "object") {
-      return;
+      return {};
     }
 
     return Object.keys(config.cssVars[mode]).reduce<{
