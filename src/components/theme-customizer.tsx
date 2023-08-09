@@ -283,7 +283,7 @@ function CopyCodeButton() {
 
 function CustomizerCode() {
   const [config] = useConfig();
-  const activeTheme = themes.find((theme) => theme.name === config.theme);
+  const activeTheme = config;
 
   return (
     <ThemeWrapper defaultTheme="zinc" className="relative space-y-4">
