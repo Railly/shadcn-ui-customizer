@@ -188,7 +188,8 @@ export function Customizer({ className }: { className?: string }) {
 
 function CopyCodeButton() {
   const [config] = useConfig();
-  const activeTheme = themes.find((theme) => theme.name === config.theme);
+  // const activeTheme = themes.find((theme) => theme.name === config.theme);
+  const activeTheme = config;
   const [hasCopied, setHasCopied] = React.useState(false);
   const { setTheme: setMode, resolvedTheme: mode } = useTheme();
 
@@ -204,11 +205,14 @@ function CopyCodeButton() {
         <Button
           onClick={() => {
             copyToClipboardWithMeta(
-              getThemeCode(activeTheme, config.cssVars.light?.radius),
+              getThemeCode(
+                activeTheme as any,
+                config.cssVars.light?.radius || 0.5
+              ),
               {
                 name: "copy_theme_code",
                 properties: {
-                  theme: activeTheme.name,
+                  theme: activeTheme.theme,
                   radius: String(config.cssVars.light?.radius),
                 },
               }
@@ -246,11 +250,14 @@ function CopyCodeButton() {
                 size="sm"
                 onClick={() => {
                   copyToClipboardWithMeta(
-                    getThemeCode(activeTheme, config.cssVars.light?.radius),
+                    getThemeCode(
+                      activeTheme as any,
+                      config.cssVars.light?.radius || 0.5
+                    ),
                     {
                       name: "copy_theme_code",
                       properties: {
-                        theme: activeTheme.name,
+                        theme: activeTheme.theme,
                         radius: String(config.cssVars.light?.radius),
                       },
                     }
