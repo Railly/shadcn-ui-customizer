@@ -1,6 +1,9 @@
 # shadcn/ui customizer
 
-This is an open-source extension of [shadcn/ui](https://github.com/shaddcn-ui/ui) for customizing the theme.
+This is an open-source extension of [shadcn/ui](https://github.com/shaddcn-ui/ui) themes for customizing the theme.
+
+> [!IMPORTANT]
+> Original theme customizer: [https://ui.shadcn.com/themes](https://ui.shadcn.com/themes)
 
 ## Screenhsots
 
