@@ -1,19 +1,19 @@
-import { CardsActivityGoal } from "@/registry/new-york/example/cards/activity-goal";
-import { CardsCalendar } from "@/registry/new-york/example/cards/calendar";
-import { CardsChat } from "@/registry/new-york/example/cards/chat";
-import { CardsCookieSettings } from "@/registry/new-york/example/cards/cookie-settings";
-import { CardsCreateAccount } from "@/registry/new-york/example/cards/create-account";
-import { CardsDataTable } from "@/registry/new-york/example/cards/data-table";
-import { CardsMetric } from "@/registry/new-york/example/cards/metric";
-import { CardsPaymentMethod } from "@/registry/new-york/example/cards/payment-method";
-import { CardsReportIssue } from "@/registry/new-york/example/cards/report-issue";
-import { CardsShare } from "@/registry/new-york/example/cards/share";
-import { CardsStats } from "@/registry/new-york/example/cards/stats";
-import { CardsTeamMembers } from "@/registry/new-york/example/cards/team-members";
+import { CardsActivityGoal } from "@/registry/new-york/example/cards/activity-goal"
+import { CardsCalendar } from "@/registry/new-york/example/cards/calendar"
+import { CardsChat } from "@/registry/new-york/example/cards/chat"
+import { CardsCookieSettings } from "@/registry/new-york/example/cards/cookie-settings"
+import { CardsCreateAccount } from "@/registry/new-york/example/cards/create-account"
+import { CardsDataTable } from "@/registry/new-york/example/cards/data-table"
+import { CardsMetric } from "@/registry/new-york/example/cards/metric"
+import { CardsPaymentMethod } from "@/registry/new-york/example/cards/payment-method"
+import { CardsReportIssue } from "@/registry/new-york/example/cards/report-issue"
+import { CardsShare } from "@/registry/new-york/example/cards/share"
+import { CardsStats } from "@/registry/new-york/example/cards/stats"
+import { CardsTeamMembers } from "@/registry/new-york/example/cards/team-members"
 
 export default function CardsDemo() {
   return (
-    <div className="grid md:grids-col-2 md:gap-4">
+    <div className="md:grids-col-2 grid md:gap-4 lg:grid-cols-10 xl:grid-cols-11 xl:gap-4">
       <div className="space-y-4 lg:col-span-4 xl:col-span-6 xl:space-y-4">
         <CardsStats />
         <div className="grid gap-1 sm:grid-cols-[260px_1fr] md:hidden">
@@ -59,5 +59,5 @@ export default function CardsDemo() {
         </div>
       </div>
     </div>
-  );
+  )
 }

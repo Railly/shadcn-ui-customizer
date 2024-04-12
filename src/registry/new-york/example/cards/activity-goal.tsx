@@ -81,11 +81,11 @@ export function CardsActivityGoal() {
           <Button
             variant="outline"
             size="icon"
-            className="w-8 h-8 rounded-full shrink-0"
+            className="h-8 w-8 shrink-0 rounded-full"
             onClick={() => onClick(-10)}
             disabled={goal <= 200}
           >
-            <MinusIcon className="w-4 h-4" />
+            <MinusIcon className="h-4 w-4" />
             <span className="sr-only">Decrease</span>
           </Button>
           <div className="flex-1 text-center">
@@ -97,30 +97,18 @@ export function CardsActivityGoal() {
           <Button
             variant="outline"
             size="icon"
-            className="w-8 h-8 rounded-full shrink-0"
+            className="h-8 w-8 shrink-0 rounded-full"
             onClick={() => onClick(10)}
             disabled={goal >= 400}
           >
-            <PlusIcon className="w-4 h-4" />
+            <PlusIcon className="h-4 w-4" />
             <span className="sr-only">Increase</span>
           </Button>
         </div>
         <div className="my-3 h-[60px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>
-              <Bar
-                dataKey="goal"
-                style={
-                  {
-                    fill: "var(--theme-primary)",
-                    opacity: 0.2,
-                    "--theme-primary": `hsl(${
-                      config?.cssVars[mode === "dark" ? "dark" : "light"]
-                        .primary
-                    })`,
-                  } as React.CSSProperties
-                }
-              />
+              <Bar dataKey="goal" className="fill-primary opacity-25" />
             </BarChart>
           </ResponsiveContainer>
         </div>

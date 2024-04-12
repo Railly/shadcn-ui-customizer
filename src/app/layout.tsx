@@ -22,6 +22,7 @@ export default function RootLayout({
         <Providers>
           <div className="relative flex flex-col min-h-screen">
             {/* <SiteHeader /> */}
+
             <div className="flex-1 px-6 py-4">
               {children}
               <Analytics />

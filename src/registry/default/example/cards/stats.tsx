@@ -54,7 +54,7 @@ export function CardsStats() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-base font-normal">Total Revenue</CardTitle>
         </CardHeader>
         <CardContent>
@@ -72,6 +72,7 @@ export function CardsStats() {
                   left: 10,
                   bottom: 0,
                 }}
+                className="stroke-primary"
               >
                 <Line
                   type="monotone"
@@ -81,15 +82,7 @@ export function CardsStats() {
                     r: 6,
                     style: { fill: "var(--theme-primary)", opacity: 0.25 },
                   }}
-                  style={
-                    {
-                      stroke: "var(--theme-primary)",
-                      "--theme-primary": `hsl(${
-                        config?.cssVars[mode === "dark" ? "dark" : "light"]
-                          .primary
-                      })`,
-                    } as React.CSSProperties
-                  }
+                  className="[&_path]:stroke-primary [&circle]:stroke-primary fill-primary"
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -97,7 +90,7 @@ export function CardsStats() {
         </CardContent>
       </Card>
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-base font-normal">Subscriptions</CardTitle>
         </CardHeader>
         <CardContent>
@@ -108,19 +101,7 @@ export function CardsStats() {
           <div className="mt-4 h-[80px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
-                <Bar
-                  dataKey="subscription"
-                  style={
-                    {
-                      opacity: 1,
-                      "--theme-primary": `hsl(${
-                        config.cssVars[mode === "dark" ? "dark" : "light"]
-                          .primary
-                      })`,
-                      fill: "var(--theme-primary)",
-                    } as React.CSSProperties
-                  }
-                />
+                <Bar dataKey="subscription" className="fill-primary" />
               </BarChart>
             </ResponsiveContainer>
           </div>

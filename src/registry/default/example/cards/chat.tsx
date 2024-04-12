@@ -1,19 +1,19 @@
-import * as React from "react";
-import { Check, Plus, Send } from "lucide-react";
+import * as React from "react"
+import { Check, Plus, Send } from "lucide-react"
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/registry/default/ui/avatar";
-import { Button } from "@/registry/default/ui/button";
+} from "@/registry/default/ui/avatar"
+import { Button } from "@/registry/default/ui/button"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/registry/default/ui/card";
+} from "@/registry/default/ui/card"
 import {
   Command,
   CommandEmpty,
@@ -21,7 +21,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/registry/default/ui/command";
+} from "@/registry/default/ui/command"
 import {
   Dialog,
   DialogContent,
@@ -29,14 +29,14 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/registry/default/ui/dialog";
-import { Input } from "@/registry/default/ui/input";
+} from "@/registry/default/ui/dialog"
+import { Input } from "@/registry/default/ui/input"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/registry/default/ui/tooltip";
+} from "@/registry/default/ui/tooltip"
 
 const users = [
   {
@@ -64,13 +64,13 @@ const users = [
     email: "will@email.com",
     avatar: "/avatars/04.png",
   },
-] as const;
+] as const
 
-type User = (typeof users)[number];
+type User = (typeof users)[number]
 
 export function CardsChat() {
-  const [open, setOpen] = React.useState(false);
-  const [selectedUsers, setSelectedUsers] = React.useState<User[]>([]);
+  const [open, setOpen] = React.useState(false)
+  const [selectedUsers, setSelectedUsers] = React.useState<User[]>([])
 
   const [messages, setMessages] = React.useState([
     {
@@ -89,7 +89,9 @@ export function CardsChat() {
       role: "user",
       content: "I can't log in.",
     },
-  ]);
+  ])
+  const [input, setInput] = React.useState("")
+  const inputLength = input.trim().length
 
   return (
     <>
@@ -114,7 +116,8 @@ export function CardsChat() {
                   className="ml-auto rounded-full"
                   onClick={() => setOpen(true)}
                 >
-                  <Plus className="w-4 h-4" />
+                  <Plus className="h-4 w-4" />
+                  <span className="sr-only">New message</span>
                 </Button>
               </TooltipTrigger>
               <TooltipContent sideOffset={10}>New message</TooltipContent>
@@ -141,26 +144,29 @@ export function CardsChat() {
         <CardFooter>
           <form
             onSubmit={(event) => {
-              event.preventDefault();
+              event.preventDefault()
+              if (inputLength === 0) return
               setMessages([
                 ...messages,
                 {
                   role: "user",
-                  content: event.currentTarget.message.value,
+                  content: input,
                 },
-              ]);
-
-              event.currentTarget.message.value = "";
+              ])
+              setInput("")
             }}
-            className="flex items-center w-full space-x-2"
+            className="flex w-full items-center space-x-2"
           >
             <Input
               id="message"
               placeholder="Type your message..."
               className="flex-1"
+              autoComplete="off"
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
             />
-            <Button type="submit" size="icon">
-              <Send className="w-4 h-4" />
+            <Button type="submit" size="icon" disabled={inputLength === 0}>
+              <Send className="h-4 w-4" />
               <span className="sr-only">Send</span>
             </Button>
           </form>
@@ -168,14 +174,14 @@ export function CardsChat() {
       </Card>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="gap-0 p-0 outline-none">
-          <DialogHeader className="px-4 pt-5 pb-4">
+          <DialogHeader className="px-4 pb-4 pt-5">
             <DialogTitle>New message</DialogTitle>
             <DialogDescription>
               Invite a user to this thread. This will create a new group
               message.
             </DialogDescription>
           </DialogHeader>
-          <Command className="overflow-hidden border-t rounded-t-none">
+          <Command className="overflow-hidden rounded-t-none border-t">
             <CommandInput placeholder="Search user..." />
             <CommandList>
               <CommandEmpty>No users found.</CommandEmpty>
@@ -190,14 +196,14 @@ export function CardsChat() {
                           selectedUsers.filter(
                             (selectedUser) => selectedUser !== user
                           )
-                        );
+                        )
                       }
 
                       return setSelectedUsers(
                         [...users].filter((u) =>
                           [...selectedUsers, user].includes(u)
                         )
-                      );
+                      )
                     }}
                   >
                     <Avatar>
@@ -213,14 +219,14 @@ export function CardsChat() {
                       </p>
                     </div>
                     {selectedUsers.includes(user) ? (
-                      <Check className="flex w-5 h-5 ml-auto text-primary" />
+                      <Check className="ml-auto flex h-5 w-5 text-primary" />
                     ) : null}
                   </CommandItem>
                 ))}
               </CommandGroup>
             </CommandList>
           </Command>
-          <DialogFooter className="flex items-center p-4 border-t sm:justify-between">
+          <DialogFooter className="flex items-center border-t p-4 sm:justify-between">
             {selectedUsers.length > 0 ? (
               <div className="flex -space-x-2 overflow-hidden">
                 {selectedUsers.map((user) => (
@@ -241,7 +247,7 @@ export function CardsChat() {
             <Button
               disabled={selectedUsers.length < 2}
               onClick={() => {
-                setOpen(false);
+                setOpen(false)
               }}
             >
               Continue
@@ -250,5 +256,5 @@ export function CardsChat() {
         </DialogContent>
       </Dialog>
     </>
-  );
+  )
 }

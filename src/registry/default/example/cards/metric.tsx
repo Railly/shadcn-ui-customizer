@@ -53,7 +53,7 @@ export function CardsMetric() {
       <CardHeader>
         <CardTitle>Exercise Minutes</CardTitle>
         <CardDescription>
-          Your excercise minutes are ahead of where you normally are.
+          Your exercise minutes are ahead of where you normally are.
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-4">
@@ -67,12 +67,13 @@ export function CardsMetric() {
                 left: 10,
                 bottom: 0,
               }}
+              className="fill-primary"
             >
               <Tooltip
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     return (
-                      <div className="p-2 border rounded-lg shadow-sm bg-background">
+                      <div className="rounded-lg border bg-background p-2 shadow-sm">
                         <div className="grid grid-cols-2 gap-2">
                           <div className="flex flex-col">
                             <span className="text-[0.70rem] uppercase text-muted-foreground">
@@ -106,16 +107,7 @@ export function CardsMetric() {
                   r: 6,
                   style: { fill: "var(--theme-primary)", opacity: 0.25 },
                 }}
-                style={
-                  {
-                    stroke: "var(--theme-primary)",
-                    opacity: 0.25,
-                    "--theme-primary": `hsl(${
-                      config?.cssVars[mode === "dark" ? "dark" : "light"]
-                        .primary
-                    })`,
-                  } as React.CSSProperties
-                }
+                className="[&_path]:stroke-primary [&circle]:stroke-primary fill-primary"
               />
               <Line
                 type="monotone"
@@ -125,15 +117,7 @@ export function CardsMetric() {
                   r: 8,
                   style: { fill: "var(--theme-primary)" },
                 }}
-                style={
-                  {
-                    stroke: "var(--theme-primary)",
-                    "--theme-primary": `hsl(${
-                      config?.cssVars[mode === "dark" ? "dark" : "light"]
-                        .primary
-                    })`,
-                  } as React.CSSProperties
-                }
+                className="[&_path]:stroke-primary [&circle]:stroke-primary fill-primary"
               />
             </LineChart>
           </ResponsiveContainer>

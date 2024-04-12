@@ -1,14 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  CheckIcon,
-  CopyIcon,
-  InfoCircledIcon,
-  MoonIcon,
-  ResetIcon,
-  SunIcon,
-} from "@radix-ui/react-icons";
+import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import template from "lodash.template";
 import { Paintbrush } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -27,7 +20,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
@@ -44,7 +36,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Color, ColorResult, SketchPicker, Checkboard } from "react-color";
 import CustomizerHeader from "./customizer/customizer-header";
 import StyleSection from "./customizer/style-section";
 import ColorSection from "./customizer/color-section";
@@ -74,7 +65,7 @@ export function ThemeCustomizer() {
           <Customizer />
         </DrawerContent>
       </Drawer.Root>
-      <div className="flex md:hidden">
+      <div className="hidden md:flex">
         <div className="mr-2 hidden items-center space-x-0.5 lg:flex">
           {mounted ? (
             <>
@@ -174,19 +165,18 @@ export function Customizer({ className }: { className?: string }) {
       )}
     >
       <CustomizerHeader />
-      <div className="flex flex-col flex-1 space-y-4 md:space-y-6">
+      <div className="flex flex-col pb-16 flex-1 gap-4 md:gap-6">
         <StyleSection />
         <ColorSection />
         <RadiusSection />
         <ModeSection />
         <ColorPickerSection />
-        <CopyCodeButton />
       </div>
     </ThemeWrapper>
   );
 }
 
-function CopyCodeButton() {
+export function CopyCodeButton() {
   const [config] = useConfig();
   // const activeTheme = themes.find((theme) => theme.name === config.theme);
   const activeTheme = config;

@@ -63,7 +63,7 @@ export function ThemesTabs() {
           </div>
         </div>
       ) : (
-        <ThemeWrapper className="max-w-6xl">
+        <ThemeWrapper className="w-full">
           {config.style === "new-york" && <CardsNewYork />}
           {config.style === "default" && <CardsDefault />}
         </ThemeWrapper>

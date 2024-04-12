@@ -10,7 +10,7 @@ function PageHeader({
   return (
     <section
       className={cn(
-        "flex max-w-[980px] flex-col items-start gap-2 px-4 pt-8 md:pt-12",
+        "flex  flex-col items-start gap-2 px-4 pt-8 md:pt-12",
         className
       )}
       {...props}
@@ -27,7 +27,7 @@ function PageHeaderHeading({
   return (
     <h1
       className={cn(
-        "text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:leading-[1.1]",
+        "text-center text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:leading-[1.1] text-balance",
         className
       )}
       {...props}
@@ -41,10 +41,7 @@ function PageHeaderDescription({
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <Balance
-      className={cn(
-        "max-w-[750px] text-lg text-muted-foreground sm:text-xl",
-        className
-      )}
+      className={cn("text-lg text-muted-foreground sm:text-xl", className)}
       {...props}
     />
   );

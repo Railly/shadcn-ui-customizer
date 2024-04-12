@@ -1,3 +1,5 @@
+"use client";
+
 import { useAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
