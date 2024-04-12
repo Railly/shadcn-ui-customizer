@@ -39,13 +39,13 @@ export default function ThemesPage() {
         {/* Hero Section */}
         <ThemeWrapper
           defaultTheme="zinc"
-          className="relative flex flex-col items-center justify-center pt-8 pb-16"
+          className="relative flex flex-col items-center justify-center !text-center pt-8 pb-16"
         >
-          <PageHeader className="text-center flex flex-col gap-2 py-2">
+          <PageHeader className="!text-center flex flex-col gap-2 py-2">
             <PageHeaderHeading>
               ✨ Customize Shadcn UI to Match Your Style ✨
             </PageHeaderHeading>
-            <PageHeaderDescription className="w-full text-center">
+            <PageHeaderDescription className="w-full !text-center">
               Choose colors, adjust themes, and copy the generated CSS.
             </PageHeaderDescription>
             <div className="flex flex-col items-center w-full justify-center mt-8 gap-6">

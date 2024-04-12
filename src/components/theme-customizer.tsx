@@ -61,7 +61,7 @@ export function ThemeCustomizer() {
             Customize
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="h-[85%] p-6 pt-10">
+        <DrawerContent className="h-[85%] p-6 pt-10 overflow-y-auto">
           <Customizer />
         </DrawerContent>
       </Drawer.Root>
