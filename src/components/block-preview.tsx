@@ -34,7 +34,7 @@ export function BlockPreview({
     <Tabs
       id={block.name}
       defaultValue="preview"
-      className="relative grid w-full scroll-m-20 gap-4"
+      className="relative grid w-full scroll-m-20 gap-4 py-8 px-12"
       style={
         {
           "--container-height": block.container?.height,

@@ -81,7 +81,7 @@ export default async function BlockPage({
   return (
     <ThemeWrapper
       defaultTheme="zinc"
-      className="relative flex flex-col items-center justify-center pt-8 pb-16"
+      className="relative flex flex-col items-center justify-center"
     >
       <div className={cn(block.container?.className || "", "theme-zinc")}>
         <BlockWrapper block={block}>

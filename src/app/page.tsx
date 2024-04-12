@@ -13,6 +13,7 @@ import { GitBranchIcon, StarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import Header from "./header";
+import EmailSubscribe from "@/components/email-subscribe";
 
 export const metadata: Metadata = {
   title: "Shadcn UI Customizer",
@@ -44,7 +45,7 @@ export default function ThemesPage() {
             <PageHeaderHeading>
               ✨ Customize Shadcn UI to Match Your Style ✨
             </PageHeaderHeading>
-            <PageHeaderDescription className="w-full">
+            <PageHeaderDescription className="w-full text-center">
               Choose colors, adjust themes, and copy the generated CSS.
             </PageHeaderDescription>
             <div className="flex flex-col items-center w-full justify-center mt-8 gap-6">
@@ -72,11 +73,7 @@ export default function ThemesPage() {
                   PR for shadcn-ui
                 </Link>
               </div>
-
-              <div className="flex w-full max-w-sm gap-4">
-                <Input type="text" placeholder="jhon.doe@gmail.com" />
-                <Button className="">Subscribe</Button>
-              </div>
+              <EmailSubscribe />
               <div>
                 <p className="flex gap-2 text-center text-sm sm:text-left">
                   <span>
@@ -114,7 +111,21 @@ export default function ThemesPage() {
                 See It in Action
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
-                Watch how the Shadcn UI Customizer works.
+                Watch how the Shadcn UI Customizer works in{" "}
+                <Link
+                  className="text-foreground font-medium underline underline-offset-4"
+                  href="/"
+                >
+                  Themes{" "}
+                </Link>{" "}
+                or{" "}
+                <Link
+                  className="text-foreground font-medium underline underline-offset-4"
+                  href="/blocks"
+                >
+                  Blocks{" "}
+                </Link>
+                !
               </p>
             </div>
             <div className="mt-12">

@@ -82,7 +82,7 @@ export function CardsStats() {
                     r: 6,
                     style: { fill: "var(--theme-primary)", opacity: 0.25 },
                   }}
-                  className="[&_path]:stroke-primary [&circle]:stroke-primary fill-primary"
+                  className="[&_path]:stroke-primary [&_circle]:stroke-primary fill-primary"
                 />
               </LineChart>
             </ResponsiveContainer>

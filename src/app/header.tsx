@@ -6,6 +6,7 @@ import {
 } from "@/components/theme-customizer";
 import ModeToggle from "@/registry/default/example/mode-toggle";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 
 export default function Header() {
   return (
@@ -24,10 +25,13 @@ export default function Header() {
               Themes
             </Link>
             <Link
-              className="transition-colors text-muted-foreground"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
               href="/blocks"
             >
-              Blocks
+              Blocks{" "}
+              <Badge className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline hover:bg-[#adfa1dcc]">
+                New
+              </Badge>
             </Link>
             <a
               className="hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
