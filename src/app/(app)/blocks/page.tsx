@@ -98,7 +98,7 @@ export default async function BlocksPage() {
       </PageHeader>
       {/* Demo or Screenshots Section */}
       <section className="relative mt-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-2">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold leading-tight sm:text-4xl sm:leading-tight">
               See It in Action
@@ -121,7 +121,7 @@ export default async function BlocksPage() {
               !
             </p>
           </div>
-          <div className="mt-12">
+          <div className="mt-12 md:w-[98vw] flex flex-col flex-1">
             {blocks.map((name, index) => (
               <BlockDisplay key={`${name}-${index}`} name={name} />
             ))}

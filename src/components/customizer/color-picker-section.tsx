@@ -7,8 +7,7 @@ import { CssVars } from "@/registry/themes";
 import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
 import { hexToHSL, hslToHex } from "./color.utils";
-import { EditIcon, PipetteIcon } from "lucide-react";
-import { Edit2Icon } from "lucide-react";
+import { PipetteIcon } from "lucide-react";
 
 const ColorPickerSection: React.FC = () => {
   const [config, setConfig] = useConfig();
