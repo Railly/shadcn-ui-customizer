@@ -35,11 +35,11 @@ export default async function BlocksPage() {
   return (
     <div className="relative flex flex-col items-center justify-center w-full">
       <Header />
-      <PageHeader className="text-center w-full flex flex-col gap-2 py-2">
+      <PageHeader className="!text-center flex flex-col gap-2 py-2 pt-10">
         <PageHeaderHeading className="text-center w-full">
           ✨ Customize Shadcn UI to Match Your Style ✨
         </PageHeaderHeading>
-        <PageHeaderDescription className="w-full text-center">
+        <PageHeaderDescription className="w-full !text-center flex justify-center">
           Choose colors, adjust themes, and copy the generated CSS.
         </PageHeaderDescription>
         <div className="flex flex-col items-center w-full justify-center mt-8 gap-6">
@@ -96,9 +96,38 @@ export default async function BlocksPage() {
           </div>
         </div>
       </PageHeader>
-      {blocks.map((name, index) => (
-        <BlockDisplay key={`${name}-${index}`} name={name} />
-      ))}
+      {/* Demo or Screenshots Section */}
+      <section className="relative mt-16">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-bold leading-tight sm:text-4xl sm:leading-tight">
+              See It in Action
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Watch how the Shadcn UI Customizer works in{" "}
+              <Link
+                className="text-foreground font-medium underline underline-offset-4"
+                href="/"
+              >
+                Themes{" "}
+              </Link>{" "}
+              or{" "}
+              <Link
+                className="text-foreground font-medium underline underline-offset-4"
+                href="/blocks"
+              >
+                Blocks{" "}
+              </Link>
+              !
+            </p>
+          </div>
+          <div className="mt-12">
+            {blocks.map((name, index) => (
+              <BlockDisplay key={`${name}-${index}`} name={name} />
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

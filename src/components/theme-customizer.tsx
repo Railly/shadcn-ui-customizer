@@ -8,7 +8,7 @@ import { useTheme } from "next-themes";
 
 import { cn } from "@/lib/utils";
 import { useConfig } from "@/hooks/use-config";
-import { copyToClipboardWithMeta } from "@/components/copy-button";
+import { CopyButton, copyToClipboardWithMeta } from "@/components/copy-button";
 import { DrawerContent, DrawerTrigger } from "@/components/drawer";
 import { ThemeWrapper } from "@/components/theme-wrapper";
 import { Button } from "@/components/ui/button";
@@ -61,7 +61,7 @@ export function ThemeCustomizer() {
             Customize
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="h-[85%] p-6 pt-10 overflow-y-auto">
+        <DrawerContent className="h-[85%] p-6 pt-10">
           <Customizer />
         </DrawerContent>
       </Drawer.Root>
@@ -160,17 +160,18 @@ export function Customizer({ className }: { className?: string }) {
     <ThemeWrapper
       defaultTheme="zinc"
       className={cn(
-        "fixed inset-y-0 right-0 flex flex-col h-screen max-w-[30rem] p-4 space-y-4 overflow-y-scroll border-2 rounded-md shadow-sm scroll-y-auto backdrop-blur-sm bg-white/80 dark:bg-black/80 md:space-y-6",
+        "fixed inset-y-0 right-0 flex flex-col max-w-[30rem] p-4 space-y-4 overflow-y-scroll border-2 rounded-md shadow-sm scroll-y-auto backdrop-blur-sm bg-white/80 dark:bg-black/80 md:space-y-6",
         className
       )}
     >
       <CustomizerHeader />
-      <div className="flex flex-col pb-16 flex-1 gap-4 md:gap-6">
+      <div className="flex flex-col flex-1 gap-4 md:gap-6">
         <StyleSection />
         <ColorSection />
         <RadiusSection />
         <ModeSection />
         <ColorPickerSection />
+        <CopyCodeButton />
       </div>
     </ThemeWrapper>
   );

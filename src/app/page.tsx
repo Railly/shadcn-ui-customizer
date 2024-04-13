@@ -45,7 +45,7 @@ export default function ThemesPage() {
             <PageHeaderHeading>
               ✨ Customize Shadcn UI to Match Your Style ✨
             </PageHeaderHeading>
-            <PageHeaderDescription className="w-full !text-center">
+            <PageHeaderDescription className="w-full !text-center flex justify-center">
               Choose colors, adjust themes, and copy the generated CSS.
             </PageHeaderDescription>
             <div className="flex flex-col items-center w-full justify-center mt-8 gap-6">
