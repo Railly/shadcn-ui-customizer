@@ -3,7 +3,7 @@ import Providers from "@/components/providers";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +27,7 @@ export default function RootLayout({
             <div className="">
               {children}
               <Analytics />
-              <Toaster />
+              <Toaster position="top-center" richColors />
             </div>
             {/* <SiteFooter /> */}
           </div>

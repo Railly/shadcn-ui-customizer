@@ -5,28 +5,33 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoaderIcon } from "lucide-react";
 import { toast } from "sonner";
+import JSConfetti from "js-confetti";
 
 const EmailSubscribe = () => {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "submitting">("idle");
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault(); // Prevent the default form submission
-    setStatus("submitting");
+    e.preventDefault();
     try {
+      setStatus("submitting");
+      toast.loading("Subscribing...");
       const res = await axios.post("/api/subscribe", { email });
+      toast.dismiss();
       if (res.status === 200) {
+        const jsConfetti = new JSConfetti();
+        jsConfetti.addConfetti();
         toast.success(res.data.message);
       } else {
-        toast.error(res.data.statusText);
+        toast.error(res.data.error);
       }
       setEmail("");
-      setStatus("idle");
     } catch (error: any) {
-      setStatus("error");
-      toast.error(error.message);
+      toast.dismiss();
+
+      toast.error(error.response.data.error);
+    } finally {
+      setStatus("idle");
     }
   };
 
@@ -41,13 +46,14 @@ const EmailSubscribe = () => {
       <div className="flex w-full gap-4">
         <Input
           type="email"
+          autoComplete="email"
           placeholder="jhon.doe@gmail.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <Button
           className="w-[18ch]"
-          type="button"
+          type="submit"
           disabled={status === "submitting" || email === ""}
         >
           {status === "submitting" ? (

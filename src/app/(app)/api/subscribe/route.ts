@@ -1,89 +1,58 @@
+import { Resend } from "resend";
+import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@vercel/kv";
+import { SubscribedEmail } from "@/components/subscribed-email";
 
-const kv = createClient({
-  url: process.env.KV_REST_API_URL!,
-  token: process.env.KV_REST_API_TOKEN!,
+const resend = new Resend(process.env.RESEND_API_KEY!);
+const redis = Redis.fromEnv();
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(10, "1 h"),
 });
 
-const emailSetKey = "email-set";
+export async function POST(request: NextRequest) {
+  const { email } = await request.json();
 
-export async function POST(req: NextRequest) {
-  try {
-    const data = await req.json();
-    const { email } = data;
+  const ip = request.ip ?? request.headers.get("X-Forwarded-For") ?? "ip";
 
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      return new NextResponse(
-        JSON.stringify({ message: "Invalid email provided." }),
-        {
-          status: 400,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    }
-
-    const isMember = await kv.sismember(emailSetKey, email);
-    if (isMember) {
-      return new NextResponse(
-        JSON.stringify({ message: "Email is already subscribed." }),
-        {
-          status: 409,
-          statusText: "Email is already subscribed.",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    }
-
-    await kv.sadd(emailSetKey, email);
-
-    return new NextResponse(
-      JSON.stringify({ message: "Email saved successfully!" }),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  } catch (error) {
-    console.error("Error saving email:", error);
-    return new NextResponse(
-      JSON.stringify({ message: "Failed to save email." }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+  const { success } = await ratelimit.limit(ip);
+  if (!success) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
     );
   }
-}
+  const hashKey = `subscriptions:${email}`;
+  const field = "shadcn-ui-customizer";
 
-export async function GET() {
-  try {
-    const emails = await kv.smembers(emailSetKey);
+  const isSubscribed = await redis.hget(hashKey, field);
 
-    return new NextResponse(JSON.stringify({ emails }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  } catch (error) {
-    console.error("Error retrieving emails:", error);
-    return new NextResponse(
-      JSON.stringify({ error: "Failed to retrieve emails." }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+  if (isSubscribed) {
+    return NextResponse.json(
+      { error: "Email already subscribed" },
+      { status: 400 }
     );
   }
+
+  await redis.hset(hashKey, { [field]: "subscribed" });
+
+  await resend.emails.send({
+    from: "Railly Hugo <feedback@send.raillyhugo.com>",
+    to: email,
+    subject: "Subscription Confirmation",
+    react: SubscribedEmail({
+      unsubscribeLink: `https://shadcn-ui-customizer.vercel.app/api/unsubscribe?email=${encodeURIComponent(
+        email
+      )}`,
+    }),
+    text: `Welcome to Crafter Station. Thank you for subscribing. We're thrilled to have you on board! As a subscriber, you'll be the first to know about our latest features, updates, and exclusive offers. If you wish to unsubscribe, click here: https://yourproduct.com/unsubscribe?email=${encodeURIComponent(
+      email
+    )}`,
+  });
+
+  return NextResponse.json(
+    { message: "Thanks for subscribing! 🎉, check your email" },
+    { status: 200 }
+  );
 }
