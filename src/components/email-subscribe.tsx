@@ -1,11 +1,12 @@
 "use client";
 import axios from "axios";
 import React, { FormEvent, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoaderIcon } from "lucide-react";
 import { toast } from "sonner";
 import JSConfetti from "js-confetti";
+import { cn } from "@/lib/utils";
 
 const EmailSubscribe = () => {
   const [email, setEmail] = useState("");
@@ -60,6 +61,17 @@ const EmailSubscribe = () => {
             <li>Adjust the theme settings to your liking</li>
             <li>Download the vsix file and install it in VS Code</li>
           </ol>
+          <a
+            className={cn(
+              buttonVariants({
+                variant: "outline",
+              })
+            )}
+            href="https://tinte.railly.dev"
+            target="_blank"
+          >
+            Try it for free
+          </a>
         </div>
       </div>
       <div className="flex w-full gap-4">
