@@ -14,8 +14,10 @@ export default function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 hidden md:flex">
           <a className="mr-6 flex items-center space-x-2" href="/">
-            <img src="/rh-logo.svg" className="w-7 h-7" />
-            <span className="hidden font-bold sm:inline-block">railly.dev</span>
+            <img src="/rh-logo-2024.svg" className="w-7 h-7" />
+            <span className="hidden font-semibold sm:inline-block">
+              railly.dev
+            </span>
           </a>
           <nav className="flex items-center gap-4 text-sm lg:gap-6">
             <Link

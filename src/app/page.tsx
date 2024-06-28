@@ -39,7 +39,7 @@ export default function ThemesPage() {
         {/* Hero Section */}
         <ThemeWrapper
           defaultTheme="zinc"
-          className="relative flex flex-col items-center justify-center !text-center pt-8 pb-16"
+          className="relative flex flex-col items-center justify-center pt-4 md:pt-0 !text-center pb-16"
         >
           <PageHeader className="!text-center flex flex-col gap-2 py-2">
             <PageHeaderHeading>
@@ -48,7 +48,7 @@ export default function ThemesPage() {
             <PageHeaderDescription className="w-full !text-center flex justify-center">
               Choose colors, adjust themes, and copy the generated CSS.
             </PageHeaderDescription>
-            <div className="flex flex-col items-center w-full justify-center mt-8 gap-6">
+            <div className="flex flex-col items-center w-full justify-center mt-3 gap-6">
               <div className="flex w-full max-w-sm gap-4">
                 <Link
                   href="https://github.com/Railly/shadcn-ui-customizer"

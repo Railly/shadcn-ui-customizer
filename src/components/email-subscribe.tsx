@@ -38,11 +38,30 @@ const EmailSubscribe = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col w-full max-w-sm gap-6"
+      className="flex flex-col w-full max-w-2xl gap-6"
     >
-      <legend className="font-mono border border-amber-400 dark:border-yellow-400 border-dashed px-2 py-1.5 rounded-lg text-xs bg-accent text-accent-foreground">
-        A PG Database Assistant is comming... Stay tuned
-      </legend>
+      <div className="flex flex-col items-center md:flex-row gap-4 border border-amber-400 dark:border-yellow-400 border-dashed px-2 py-1.5 rounded-lg">
+        <a href="https://tinte.railly.dev" target="_blank" rel="noreferrer">
+          <img
+            src="/tinte.png"
+            alt="tinte screenshot"
+            height={606}
+            width={318}
+          />
+        </a>
+        <div className="flex flex-col gap-4">
+          <legend className="font-mono font-bold text-accent-foreground">
+            Generate your own VS Code Themes
+          </legend>
+          <ol className="list-decimal flex flex-col gap-2 text-left list-inside text-xs">
+            <li>
+              Provide a 13 color palette or <b> generate one with AI</b>
+            </li>
+            <li>Adjust the theme settings to your liking</li>
+            <li>Download the vsix file and install it in VS Code</li>
+          </ol>
+        </div>
+      </div>
       <div className="flex w-full gap-4">
         <Input
           type="email"
