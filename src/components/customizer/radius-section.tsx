@@ -26,11 +26,7 @@ const RadiusSection: React.FC = () => {
 										light: {
 											...config.cssVars.light,
 											radius: parseFloat(value),
-										},
-										dark: {
-											...config.cssVars.dark,
-											radius: parseFloat(value),
-										},
+										}
 									},
 								});
 							}}

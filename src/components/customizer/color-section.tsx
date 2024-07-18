@@ -1,5 +1,5 @@
 import { useConfig } from "@/hooks/use-config";
-import { CssVars, themes } from "@/registry/themes";
+import { themes } from "@/registry/themes";
 import React from "react";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -30,8 +30,7 @@ const ColorSection: React.FC = () => {
 							size="sm"
 							key={theme.name}
 							onClick={() => {
-								// Using dark or light won't matter since they have the same value
-								const radius = config.cssVars.dark.radius;
+								const { radius } = config.cssVars.light;
 
 								setConfig({
 									...config,
