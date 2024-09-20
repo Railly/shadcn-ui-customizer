@@ -3,10 +3,11 @@ import axios from "axios";
 import React, { FormEvent, useState } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LoaderIcon } from "lucide-react";
+import { LoaderIcon, Sparkles, Terminal, Palette } from "lucide-react";
 import { toast } from "sonner";
 import JSConfetti from "js-confetti";
 import { cn } from "@/lib/utils";
+import { track } from "@vercel/analytics/react";
 
 const EmailSubscribe = () => {
   const [email, setEmail] = useState("");
@@ -23,14 +24,16 @@ const EmailSubscribe = () => {
         const jsConfetti = new JSConfetti();
         jsConfetti.addConfetti();
         toast.success(res.data.message);
+        track("Email Subscribed", { email });
       } else {
         toast.error(res.data.error);
+        track("Email Subscription Failed", { error: res.data.error });
       }
       setEmail("");
     } catch (error: any) {
       toast.dismiss();
-
       toast.error(error.response.data.error);
+      track("Email Subscription Error", { error: error.response.data.error });
     } finally {
       setStatus("idle");
     }
@@ -41,58 +44,74 @@ const EmailSubscribe = () => {
       onSubmit={handleSubmit}
       className="flex flex-col w-full max-w-2xl gap-6"
     >
-      <div className="flex flex-col items-center md:flex-row gap-4 border border-amber-400 dark:border-yellow-400 border-dashed px-2 py-1.5 rounded-lg">
-        <a href="https://tinte.railly.dev" target="_blank" rel="noreferrer">
-          <img
-            src="/tinte.png"
-            alt="tinte screenshot"
-            height={606}
-            width={318}
-          />
-        </a>
-        <div className="flex flex-col gap-4">
-          <legend className="font-mono font-bold text-accent-foreground">
-            Generate your own VS Code Themes
-          </legend>
-          <ol className="list-decimal flex flex-col gap-2 text-left list-inside text-xs">
-            <li>
-              Provide a 13 color palette or <b> generate one with AI</b>
-            </li>
-            <li>Adjust the theme settings to your liking</li>
-            <li>Download the vsix file and install it in VS Code</li>
-          </ol>
-          <a
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-              })
-            )}
-            href="https://tinte.railly.dev"
-            target="_blank"
-          >
-            Try it for free
-          </a>
+      <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg shadow-lg">
+        <div className="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-cyan-300 rounded-full opacity-50"></div>
+        <div className="absolute bottom-0 left-0 -ml-4 -mb-4 w-24 h-24 bg-blue-300 rounded-full opacity-50"></div>
+        <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 p-6">
+          <div className="flex-shrink-0">
+            <a
+              href="https://tinte.railly.dev/shadcn"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => track("Tinte Link Clicked")}
+            >
+              <img
+                src="/tinte-2.png"
+                alt="tinte screenshot"
+                width={290}
+                className="rounded-md shadow-md hover:shadow-lg transition-shadow duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex flex-col gap-4 text-white">
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <Sparkles className="w-6 h-6 text-yellow-300" />
+              New: AI generative shadcn/ui customizer
+            </h2>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-center gap-2">
+                <span className="text-yellow-300">✓</span> Customize or
+                AI-generate your shadcn/ui theme
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-yellow-300">✓</span> Fine-tune colors,
+                typography, and component styles
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-yellow-300">✓</span> Improved UX for
+                easier theme creation
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-yellow-300">✓</span> Export and use in
+                your shadcn/ui projects
+              </li>
+            </ul>
+            <div className="mt-4 bg-black bg-opacity-30 rounded-md p-3">
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
+                <Terminal className="w-4 h-4" />
+                Install your theme with shadcn CLI
+              </h3>
+              <code className="text-xs bg-black bg-opacity-50 p-2 rounded block">
+                npx shadcn add{" "}
+                <span className="text-yellow-300">&lt;your-theme-url&gt;</span>
+              </code>
+            </div>
+            <a
+              className={cn(
+                buttonVariants({
+                  variant: "secondary",
+                }),
+                "mt-4 font-semibold bg-white hover:bg-gray-200 text-purple-900 hover:text-purple-700 transition-colors duration-300"
+              )}
+              href="https://tinte.railly.dev/shadcn"
+              target="_blank"
+              onClick={() => track("Create Custom Theme Button Clicked")}
+            >
+              <Palette className="w-4 h-4 mr-2" />
+              Create Your Custom Theme
+            </a>
+          </div>
         </div>
-      </div>
-      <div className="flex w-full gap-4">
-        <Input
-          type="email"
-          autoComplete="email"
-          placeholder="jhon.doe@gmail.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Button
-          className="w-[18ch]"
-          type="submit"
-          disabled={status === "submitting" || email === ""}
-        >
-          {status === "submitting" ? (
-            <LoaderIcon className="animate-spin" />
-          ) : (
-            "Subscribe"
-          )}
-        </Button>
       </div>
     </form>
   );
