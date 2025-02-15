@@ -1,54 +1,93 @@
 "use client";
-import axios from "axios";
-import React, { FormEvent, useState } from "react";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { LoaderIcon, Sparkles, Terminal, Palette } from "lucide-react";
-import { toast } from "sonner";
-import JSConfetti from "js-confetti";
-import { cn } from "@/lib/utils";
-import { track } from "@vercel/analytics/react";
 
-const EmailSubscribe = () => {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting">("idle");
+import type React from "react"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Palette, Sparkles, Terminal, ArrowRight } from "lucide-react"
+import { track } from "@vercel/analytics/react"
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      setStatus("submitting");
-      toast.loading("Subscribing...");
-      const res = await axios.post("/api/subscribe", { email });
-      toast.dismiss();
-      if (res.status === 200) {
-        const jsConfetti = new JSConfetti();
-        jsConfetti.addConfetti();
-        toast.success(res.data.message);
-        track("Email Subscribed", { email });
-      } else {
-        toast.error(res.data.error);
-        track("Email Subscription Failed", { error: res.data.error });
-      }
-      setEmail("");
-    } catch (error: any) {
-      toast.dismiss();
-      toast.error(error.response.data.error);
-      track("Email Subscription Error", { error: error.response.data.error });
-    } finally {
-      setStatus("idle");
-    }
-  };
+const features = [
+  {
+    icon: "›",
+    text: "Generate themes using AI or customize manually",
+  },
+  {
+    icon: "›",
+    text: "Precise control over colors and typography",
+  },
+  {
+    icon: "›",
+    text: "Real-time preview of all components",
+  },
+  {
+    icon: "›",
+    text: "One-click theme installation",
+  },
+]
+
+export function EmailSubscribe() {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleCreateTheme = () => {
+    track("Create Theme Clicked")
+    window.open("https://tinte.railly.dev/shadcn", "_blank")
+  }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col w-full max-w-2xl gap-6"
-    >
-      <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg shadow-lg">
-        <div className="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-cyan-300 rounded-full opacity-50"></div>
-        <div className="absolute bottom-0 left-0 -ml-4 -mb-4 w-24 h-24 bg-blue-300 rounded-full opacity-50"></div>
-        <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 p-6">
-          <div className="flex-shrink-0">
+    <Card className="w-full max-w-4xl border-zinc-800/30 bg-black overflow-hidden">
+      <CardContent className="p-0">
+        <div className="grid lg:grid-cols-[1fr,320px] gap-8 p-8">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-zinc-400">
+                <Sparkles className="w-4 h-4" />
+                <span className="text-sm font-medium">AI-Powered Themes</span>
+              </div>
+              <h2 className="text-2xl font-semibold tracking-tight text-white">
+                Theme Generator for shadcn/ui
+              </h2>
+            </div>
+
+            <ul className="space-y-3">
+              {features.map((feature, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-2 text-[15px] text-zinc-400"
+                >
+                  <span className="text-zinc-600">{feature.icon}</span>
+                  {feature.text}
+                </li>
+              ))}
+            </ul>
+
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-zinc-300">
+                <Terminal className="w-4 h-4" />
+                <span className="text-sm font-medium">Install with CLI</span>
+              </div>
+              <div className="relative">
+                <pre className="bg-zinc-950 rounded-md p-3 border border-zinc-800/30 font-mono text-sm overflow-x-auto">
+                  <code className="text-zinc-400">
+                    npx shadcn add <span className="text-zinc-500">&lt;theme-url&gt;</span>
+                  </code>
+                </pre>
+              </div>
+            </div>
+
+            <Button
+              size="lg"
+              onClick={handleCreateTheme}
+              className="bg-white text-black hover:bg-zinc-100 transition-colors duration-200"
+              disabled={isLoading}
+            >
+              <Palette className="w-4 h-4 mr-2" />
+              Create Theme
+              <ArrowRight className="w-4 h-4 ml-2 opacity-50" />
+            </Button>
+          </div>
+
+          <div className="relative rounded-lg overflow-hidden bg-zinc-950/50 border border-zinc-800/30">
             <a
               href="https://tinte.railly.dev/shadcn"
               target="_blank"
@@ -58,63 +97,15 @@ const EmailSubscribe = () => {
               <img
                 src="/tinte-2.png"
                 alt="tinte screenshot"
-                width={290}
-                className="rounded-md shadow-md hover:shadow-lg transition-shadow duration-300"
+                height={1400}
+                className="rounded-md hover:opacity-90 transition-opacity duration-200"
               />
             </a>
           </div>
-          <div className="flex flex-col gap-4 text-white">
-            <h2 className="text-2xl font-bold flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-yellow-300" />
-              New: AI generative shadcn/ui customizer
-            </h2>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2">
-                <span className="text-yellow-300">✓</span> Customize or
-                AI-generate your shadcn/ui theme
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-yellow-300">✓</span> Fine-tune colors,
-                typography, and component styles
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-yellow-300">✓</span> Improved UX for
-                easier theme creation
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-yellow-300">✓</span> Export and use in
-                your shadcn/ui projects
-              </li>
-            </ul>
-            <div className="mt-4 bg-black bg-opacity-30 rounded-md p-3">
-              <h3 className="text-sm font-semibold flex items-center gap-2 mb-2">
-                <Terminal className="w-4 h-4" />
-                Install your theme with shadcn CLI
-              </h3>
-              <code className="text-xs bg-black bg-opacity-50 p-2 rounded block">
-                npx shadcn add{" "}
-                <span className="text-yellow-300">&lt;your-theme-url&gt;</span>
-              </code>
-            </div>
-            <a
-              className={cn(
-                buttonVariants({
-                  variant: "secondary",
-                }),
-                "mt-4 font-semibold bg-white hover:bg-gray-200 text-purple-900 hover:text-purple-700 transition-colors duration-300"
-              )}
-              href="https://tinte.railly.dev/shadcn"
-              target="_blank"
-              onClick={() => track("Create Custom Theme Button Clicked")}
-            >
-              <Palette className="w-4 h-4 mr-2" />
-              Create Your Custom Theme
-            </a>
-          </div>
         </div>
-      </div>
-    </form>
-  );
-};
+      </CardContent>
+    </Card>
+  )
+}
 
-export default EmailSubscribe;
+export default EmailSubscribe
