@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Railly Hugo",
-      url: "https://raillyhugo.com",
+      url: "https://railly.dev",
     },
     {
       name: "Shadcn",
@@ -73,7 +73,7 @@ export default async function BlocksPage() {
               <span>
                 Created by{" "}
                 <Link
-                  href="https://raillyhugo.com"
+                  href="https://railly.dev"
                   className="font-medium underline underline-offset-4"
                   target="_blank"
                 >
